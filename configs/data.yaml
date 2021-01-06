@@ -1,7 +1,12 @@
+data_dir:
+  raw: data/raw
+  processed: data/processed
+
 pamap2:
   source: https://archive.ics.uci.edu/ml/machine-learning-databases/00231/PAMAP2_Dataset.zip
+  destination: pamap2.zip
   train_files: [ 'subject101.dat', 'subject102.dat','subject103.dat','subject104.dat', 'subject107.dat', 'subject108.dat', 'subject109.dat' ]
-  validation_files': [ 'subject105.dat' ]
+  validation_files: [ 'subject105.dat' ]
   test_files: [ 'subject106.dat' ]
   feature_columns: [ 1, 4, 5, 6, 10, 11, 12, 21, 22, 23, 27, 28, 29, 38, 39, 40, 44, 45, 46 ]
   output_file: 'pamap2_106.h5'
