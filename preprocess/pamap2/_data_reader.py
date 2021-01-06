@@ -1,6 +1,7 @@
 import csv
 
 import h5py
+import yaml
 import matplotlib.pyplot as plt
 import numpy as np
 
