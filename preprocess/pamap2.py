@@ -1,23 +1,10 @@
-import numpy as np
-import pandas as pd
 import csv
-import sys
-import os
+
 import h5py
-import sqlite3
-import copy
-from scipy import stats
-import time
-from sklearn import metrics
 import matplotlib.pyplot as plt
+import numpy as np
 
 plt.style.use('ggplot')
-
-import matplotlib
-import matplotlib.pyplot as plt
-import matplotlib.colors as colors
-import matplotlib.cm
-import seaborn as sns
 
 
 class data_reader:
@@ -32,7 +19,7 @@ class data_reader:
             for field in self.data[key]:
                 f[key].create_dataset(field, data=self.data[key][field])
         f.close()
-        print('Done.')
+        print('[Reading PAMAP2] : DONE')
 
     @property
     def train(self):
@@ -66,11 +53,8 @@ class data_reader:
             (24, 'rope jumping')
         ]
         labelToId = {str(x[0]): i for i, x in enumerate(label_map)}
-        # print "label2id=",labelToId
         idToLabel = [x[1] for x in label_map]
-        # print "id2label=",idToLabel
         cols = use_columns
-        # print "cols",cols
         data = {dataset: self.readPamap2Files(files[dataset], cols, labelToId)
                 for dataset in ('train', 'test', 'validation')}
         return data, idToLabel
@@ -79,40 +63,23 @@ class data_reader:
         data = []
         labels = []
         for i, filename in enumerate(filelist):
-            print('Reading file %d of %d' % (i + 1, len(filelist)))
+            # print('Reading file %d of %d' % (i + 1, len(filelist)))
             with open('PAMAP2_Dataset/Protocol/%s' % filename, 'r') as f:
-                # print "f",f
                 reader = csv.reader(f, delimiter=' ')
                 for line in reader:
-                    # print "line=",line
                     elem = []
                     # not including the non related activity
                     if line[1] == "0":
                         continue
-                    # if line[10] == "0":
-                    #     continue
                     for ind in cols:
-                        # print "ind=",ind
-                        # if ind == 10:
-                        #     # print "line[ind]",line[ind]
-                        #     if line[ind] == "0":
-                        #         continue
                         elem.append(line[ind])
-                    # print "elem =",elem
-                    # print "elem[:-1] =",elem[:-1]
-                    # print "elem[0] =",elem[0]
                     if sum([x == 'NaN' for x in elem]) < 9:
                         data.append([float(x) / 1000 for x in elem[:-1]])
                         labels.append(labelToId[elem[0]])
-                        # print "[x for x in elem[:-1]]=",[x for x in elem[:-1]]
-                        # print "[float(x) / 1000 for x in elem[:-1]]=",[float(x) / 1000 for x in elem[:-1]]
-                        # print "labelToId[elem[0]]=",labelToId[elem[0]]
-                        # print "labelToId[elem[-1]]",labelToId[elem[-1]]
-                        # sys.exit(0)
 
         return {'inputs': np.asarray(data), 'targets': np.asarray(labels, dtype=int) + 1}
 
 
 def read_dataset(train_test_files, use_columns, output_file_name):
-    print('Reading pamap2')
-    dr = data_reader(train_test_files, use_columns, output_file_name)
+    print('[Reading PAMAP2] ...')
+    data_reader(train_test_files, use_columns, output_file_name)
