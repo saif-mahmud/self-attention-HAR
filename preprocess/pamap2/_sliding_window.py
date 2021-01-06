@@ -39,7 +39,7 @@ def segment_pa2(x_train, y_train, window_size, n_sensor_val):
     i_segment = 0
     i_label = 0
     for (start, end) in windowz(x_train, window_size):
-        if (len(x_train[start:end]) == window_size):
+        if len(x_train[start:end]) == window_size:
             m = stats.mode(y_train[start:end])
             segments[i_segment] = x_train[start:end]
             labels[i_label] = m[0]

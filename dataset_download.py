@@ -8,7 +8,7 @@ import requests
 import yaml
 
 
-def get_dataset(url: str, data_directory: str, file_name: str, unzip=True):
+def get_dataset(url: str, data_directory: str, file_name: str, unzip: bool):
     if not os.path.exists('data/'):
         os.mkdir('data/')
 
@@ -29,7 +29,7 @@ def get_dataset(url: str, data_directory: str, file_name: str, unzip=True):
 
         data_file.close()
 
-        if unzip == True:
+        if unzip:
             print(f'Unzipping [{file_name}] ...')
             with zipfile.ZipFile(os.path.join(data_directory, file_name), 'r') as zip_ref:
                 zip_ref.extractall(os.path.join(
