@@ -10,8 +10,8 @@ plt.style.use('ggplot')
 
 class data_reader:
     def __init__(self, train_test_files, use_columns, output_file_name):
-        self.data, self.idToLabel = self.readPamap2(train_test_files, use_columns)
         if not os.path.exists(output_file_name):
+            self.data, self.idToLabel = self.readPamap2(train_test_files, use_columns)
             self.save_data(output_file_name)
 
     def save_data(self, output_file_name):
@@ -21,7 +21,6 @@ class data_reader:
             for field in self.data[key]:
                 f[key].create_dataset(field, data=self.data[key][field])
         f.close()
-        print('[Reading PAMAP2] : DONE')
 
     @property
     def train(self):
@@ -85,3 +84,4 @@ class data_reader:
 def read_dataset(train_test_files, use_columns, output_file_name):
     print('[Reading PAMAP2] ...')
     data_reader(train_test_files, use_columns, output_file_name)
+    print('[Reading PAMAP2] : DONE')
