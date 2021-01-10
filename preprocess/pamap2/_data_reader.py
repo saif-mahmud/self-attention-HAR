@@ -65,7 +65,7 @@ class data_reader:
         labels = []
         for i, filename in enumerate(filelist):
             # print('Reading file %d of %d' % (i + 1, len(filelist)))
-            with open('PAMAP2_Dataset/Protocol/%s' % filename, 'r') as f:
+            with open('data/raw/PAMAP2_Dataset/Protocol/%s' % filename, 'r') as f:
                 reader = csv.reader(f, delimiter=' ')
                 for line in reader:
                     elem = []

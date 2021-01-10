@@ -9,19 +9,20 @@ from ._data_reader import read_dataset
 from ._sliding_window import segment_pa2, segment_window_all
 
 
-def get_data(input_width=33, n_sensor_val=18, overlap=.5, print_debug=True):
+def get_pamap2_data(input_width=33, n_sensor_val=18, overlap=.5, print_debug=True):
     data_config_file = open('configs/data.yaml', mode='r')
-    pamap2_config = yaml.load(data_config_file, Loader=yaml.FullLoader)['pamap2']
+    data_config = yaml.load(data_config_file, Loader=yaml.FullLoader)
 
-    train_test_files = {'train': pamap2_config['train_files'],
-                        'validation': pamap2_config['validation_files'],
-                        'test': pamap2_config['test_files']
+    train_test_files = {'train': data_config['pamap2']['train_files'],
+                        'validation': data_config['pamap2']['validation_files'],
+                        'test': data_config['pamap2']['test_files']
                         }
 
-    read_dataset(train_test_files=train_test_files, use_columns=pamap2_config['feature_columns'],
-                 output_file_name=pamap2_config['output_file'])
+    read_dataset(train_test_files=train_test_files, use_columns=data_config['pamap2']['feature_columns'],
+                 output_file_name=os.path.join(data_config['data_dir']['processed'],
+                                               data_config['pamap2']['output_file']))
 
-    path = os.path.join('pamap2_106.h5')
+    path = os.path.join(data_config['data_dir']['processed'], data_config['pamap2']['output_file'])
     f = h5py.File(path, 'r')
 
     x_train = f.get('train').get('inputs')[()]
@@ -63,7 +64,7 @@ def get_data(input_width=33, n_sensor_val=18, overlap=.5, print_debug=True):
     x_val = np.where(np.isnan(x_val), np.ma.array(x_val, mask=np.isnan(x_val)).mean(axis=0), x_val)
     x_test = np.where(np.isnan(x_test), np.ma.array(x_test, mask=np.isnan(x_test)).mean(axis=0), x_test)
 
-    n_sensor_val = len(pamap2_config['feature_columns']) - 1
+    n_sensor_val = len(data_config['pamap2']['feature_columns']) - 1
     input_width = input_width
     print("segmenting signal...")
     train_x, train_y = segment_pa2(x_train, y_train, input_width, n_sensor_val)
