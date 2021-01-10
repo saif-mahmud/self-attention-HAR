@@ -1,0 +1,12 @@
+training:
+  loss: 'categorical_crossentropy'
+  optimizer: 'adam'
+  metrics: [ 'accuracy' ]
+
+
+pamap2:
+  epochs: 15
+  batch_size: 128
+  d_model: 128
+  dropout: 0.2
+  n_head: 4
