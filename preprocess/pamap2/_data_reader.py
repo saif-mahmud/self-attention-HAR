@@ -1,7 +1,7 @@
 import csv
+import os
 
 import h5py
-import yaml
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -11,7 +11,8 @@ plt.style.use('ggplot')
 class data_reader:
     def __init__(self, train_test_files, use_columns, output_file_name):
         self.data, self.idToLabel = self.readPamap2(train_test_files, use_columns)
-        self.save_data(output_file_name)
+        if not os.path.exists(output_file_name):
+            self.save_data(output_file_name)
 
     def save_data(self, output_file_name):
         f = h5py.File(output_file_name)
