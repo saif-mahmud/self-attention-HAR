@@ -43,9 +43,9 @@ def label_count_from_zero(all_data):
 
 
 def split(data):
-    """ get 80% train ,10%test and 10% validation data from each activity """
+    """ get 80% train, 10% test and 10% validation data from each activity """
 
-    y = data[:, 0]  # .reshape(-1,1)
+    y = data[:, 0]  # .reshape(-1, 1)
     X = np.delete(data, 0, axis=1)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=1)

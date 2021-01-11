@@ -6,6 +6,7 @@ import yaml
 
 from model.har_model import get_model
 from preprocess.pamap2.data_loader import get_pamap2_data
+from preprocess.skoda.data_loader import get_skoda_data
 
 tf.keras.backend.clear_session()
 warnings.filterwarnings("ignore")
@@ -18,13 +19,17 @@ def get_data(dataset: str):
 
         return train_x, train_y, val_x, val_y, test_x, test_y
 
+    elif dataset == 'skoda':
+        (train_x, train_y), (val_x, val_y), (test_x, test_y) = get_skoda_data()
+        return train_x, train_y, val_x, val_y, test_x, test_y
 
-def train_model(dataset: str, exp_config, train_x, train_y, val_x, val_y):
+
+def train_model(dataset: str, model_config, train_x, train_y, val_x, val_y):
     n_timesteps, n_features, n_outputs = train_x.shape[1], train_x.shape[2], train_y.shape[1]
 
-    model = get_model(n_timesteps, n_features, n_outputs, d_model=exp_config[dataset]['d_model'])
+    model = get_model(n_timesteps, n_features, n_outputs, d_model=model_config[dataset]['d_model'])
 
-    model.compile(**exp_config['training'])
+    model.compile(**model_config['training'])
     model.summary()
 
     earlyStopping = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=5, verbose=1, mode='max')
@@ -36,8 +41,8 @@ def train_model(dataset: str, exp_config, train_x, train_y, val_x, val_y):
                                                           mode='min')
 
     model.fit(train_x, train_y,
-              epochs=exp_config[dataset]['epochs'],
-              batch_size=exp_config[dataset]['batch_size'],
+              epochs=model_config[dataset]['epochs'],
+              batch_size=model_config[dataset]['batch_size'],
               verbose=1,
               validation_data=(val_x, val_y),
               callbacks=[reduce_lr_loss, earlyStopping])
@@ -48,8 +53,9 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--dataset', default='pamap2', type=str, help='Name of Dataset for Model Training')
     args = parser.parse_args()
 
-    exp_config_file = open('configs/experiment.yaml', mode='r')
-    exp_config = yaml.load(exp_config_file, Loader=yaml.FullLoader)
+    model_config_file = open('configs/model.yaml', mode='r')
+    model_config = yaml.load(model_config_file, Loader=yaml.FullLoader)
 
     train_x, train_y, val_x, val_y, test_x, test_y = get_data(dataset=args.dataset)
-    train_model(dataset=args.dataset, exp_config=exp_config, train_x=train_x, train_y=train_y, val_x=val_x, val_y=val_y)
+    train_model(dataset=args.dataset, model_config=model_config, train_x=train_x, train_y=train_y, val_x=val_x,
+                val_y=val_y)

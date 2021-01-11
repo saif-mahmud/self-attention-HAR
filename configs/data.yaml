@@ -15,3 +15,4 @@ skoda:
   source: http://har-dataset.org/lib/exe/fetch.php?media=wiki:dataset:skodaminicp:skodaminicp_2015_08.zip
   destination: skoda.zip
   data_file: data/raw/SkodaMiniCP_2015_08/right_classall_clean.mat
+  window_size: 49
