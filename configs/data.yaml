@@ -11,3 +11,7 @@ pamap2:
   feature_columns: [ 1, 4, 5, 6, 10, 11, 12, 21, 22, 23, 27, 28, 29, 38, 39, 40, 44, 45, 46 ]
   output_file: 'pamap2_106.h5'
 
+skoda:
+  source: http://har-dataset.org/lib/exe/fetch.php?media=wiki:dataset:skodaminicp:skodaminicp_2015_08.zip
+  destination: skoda.zip
+  data_file: data/raw/SkodaMiniCP_2015_08/right_classall_clean.mat
