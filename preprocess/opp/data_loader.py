@@ -5,8 +5,8 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 
-from _data_reader import data_reader
-from _sliding_window import *
+from ._data_reader import data_reader
+from ._sliding_window import *
 
 def get_opp_data():
     cols = [
@@ -25,10 +25,10 @@ def get_opp_data():
             }
     if not os.path.exists('data/processed/opportunity.h5'):
         r = data_reader(train_test_split,cols)
-    (train_x, train_y), (val_x, val_y), (test_x, test_y) = preprocess(input_width=240, n_sensor_val=len(cols)-1)
+    return preprocess(input_width=24, n_sensor_val=len(cols)-1)
 
 
-def preprocess(input_width=64, n_sensor_val=77, verbose=True):
+def preprocess(input_width=64, n_sensor_val=77, verbose=False):
     path = os.path.join('data/processed/opportunity.h5')
     f = h5py.File(path, 'r')
 
@@ -95,7 +95,3 @@ def preprocess(input_width=64, n_sensor_val=77, verbose=True):
         print("test_y shape(1-hot) =",test_y.shape)
 
     return (train_x, train_y), (val_x, val_y), (test_x, test_y)
-
-
-if __name__ == "__main__":
-    get_opp_data()

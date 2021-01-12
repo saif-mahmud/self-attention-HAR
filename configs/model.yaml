@@ -14,3 +14,10 @@ skoda:
   epochs: 10
   batch_size: 256
   d_model: 128
+
+opp:
+  epochs: 1
+  batch_size: 256
+  d_model: 128
+  n_head: 4
+

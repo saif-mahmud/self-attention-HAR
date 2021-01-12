@@ -7,6 +7,7 @@ import yaml
 from model.har_model import get_model
 from preprocess.pamap2.data_loader import get_pamap2_data
 from preprocess.skoda.data_loader import get_skoda_data
+from preprocess.opp.data_loader import get_opp_data
 
 tf.keras.backend.clear_session()
 warnings.filterwarnings("ignore")
@@ -21,6 +22,10 @@ def get_data(dataset: str):
 
     elif dataset == 'skoda':
         (train_x, train_y), (val_x, val_y), (test_x, test_y) = get_skoda_data()
+        return train_x, train_y, val_x, val_y, test_x, test_y
+    
+    elif dataset == 'opp':
+        (train_x, train_y), (val_x, val_y), (test_x, test_y) = get_opp_data()
         return train_x, train_y, val_x, val_y, test_x, test_y
 
 
