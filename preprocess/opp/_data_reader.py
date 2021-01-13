@@ -2,9 +2,11 @@ import h5py
 import numpy as np
 import csv
 
+
 class data_reader:
-    def __init__(self, train_test_split,cols):
-        self.data, self.idToLabel = self.readOpportunity(train_test_split,cols)
+    def __init__(self, train_test_split, cols):
+        self.data, self.idToLabel = self.readOpportunity(
+            train_test_split, cols)
         self.save_data()
 
     def save_data(self):
@@ -28,11 +30,10 @@ class data_reader:
     def validation(self):
         return self.data['validation']
 
-
-    def readOpportunity(self, train_test_split,cols):
+    def readOpportunity(self, train_test_split, cols):
         files = train_test_split
-        #names are from label_legend.txt of Opportunity dataset
-        #except 0-ie Other, which is an additional label
+        # names are from label_legend.txt of Opportunity dataset
+        # except 0-ie Other, which is an additional label
         label_map = [
             (0,      'Other'),
             (406516, 'Open Door 1'),
@@ -62,7 +63,6 @@ class data_reader:
                 for dataset in ('train', 'test', 'validation')}
 
         return data, idToLabel
-
 
     def readOpportunityFiles(self, filelist, cols, labelToId):
         data = []
