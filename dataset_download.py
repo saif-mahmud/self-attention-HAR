@@ -43,10 +43,10 @@ def get_dataset(url: str, data_directory: str, file_name: str, unzip: bool):
 
 
 if __name__ == "__main__":
-    config_file = open('configs/metadata.yaml', mode='r')
+    config_file = open('configs/data.yaml', mode='r')
     config = yaml.load(config_file, Loader=yaml.FullLoader)
 
     dataset = str(sys.argv[1])
 
     get_dataset(url=config[dataset]['source'], data_directory=config['data_dir']['raw'],
-                file_name=config[dataset]['destination'])
+                file_name=config[dataset]['destination'], unzip=True)
