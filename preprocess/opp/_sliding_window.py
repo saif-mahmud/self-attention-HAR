@@ -1,6 +1,5 @@
 import numpy as np
 from scipy import stats
-from sklearn import metrics
 
 
 def windowz(data, size, use_overlap=True, overlap=.5):
@@ -13,7 +12,7 @@ def windowz(data, size, use_overlap=True, overlap=.5):
             start += size
 
 
-def segment_opp(x_train, y_train, window_size, n_sensor_val, keep_y_sample_wise=True):
+def segment_opp(x_train, y_train, window_size, n_sensor_val):
     segments = np.zeros(
         ((len(x_train)//(window_size//2))-1, window_size, n_sensor_val))
     labels = np.zeros(((len(y_train)//(window_size//2))-1))

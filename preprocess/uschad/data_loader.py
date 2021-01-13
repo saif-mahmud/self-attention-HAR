@@ -1,3 +1,4 @@
+import yaml
 import pandas as pd
 
 from ._data_reader import read_uschad
@@ -12,7 +13,9 @@ def get_uschad_data(downsample=True, verbose=False):
     x_columns = ['acc_x', 'acc_y', 'acc_z', 'gyr_x', 'gyr_y', 'gyr_z']
     y_columns = 'activity'
 
-    window_size = 32
+    config_file = open('configs/data.yaml', mode='r')
+    config = yaml.load(config_file, Loader=yaml.FullLoader)['uschad']
+    window_size = config['window_size']
 
     df = read_uschad()
     df = df.apply(pd.to_numeric)

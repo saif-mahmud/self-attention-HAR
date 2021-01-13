@@ -1,3 +1,4 @@
+import yaml
 import h5py
 import os
 import time
@@ -26,10 +27,10 @@ def get_opp_data():
     }
     if not os.path.exists('data/processed/opportunity.h5'):
         r = data_reader(train_test_split, cols)
-    return preprocess(input_width=24, n_sensor_val=len(cols)-1)
+    return preprocess(n_sensor_val=len(cols)-1)
 
 
-def preprocess(input_width=64, n_sensor_val=77, verbose=False):
+def preprocess(n_sensor_val=77, verbose=False):
     path = os.path.join('data/processed/opportunity.h5')
     f = h5py.File(path, 'r')
 
@@ -57,13 +58,15 @@ def preprocess(input_width=64, n_sensor_val=77, verbose=False):
     # x_val = np.where(np.isnan(x_val), np.ma.array(x_val, mask=np.isnan(x_val)).mean(axis=0), x_val)
     # x_test = np.where(np.isnan(x_test), np.ma.array(x_test, mask=np.isnan(x_test)).mean(axis=0), x_test)
 
-    input_width = input_width
+    config_file = open('configs/data.yaml', mode='r')
+    config = yaml.load(config_file, Loader=yaml.FullLoader)['opp']
+    window_size = config['window_size']
     if verbose:
         print("segmenting signal...")
-    train_x, train_y = segment_opp(x_train, y_train, input_width, n_sensor_val)
-    val_x, val_y = segment_opp(x_val, y_val, input_width, n_sensor_val)
+    train_x, train_y = segment_opp(x_train, y_train, window_size, n_sensor_val)
+    val_x, val_y = segment_opp(x_val, y_val, window_size, n_sensor_val)
     test_x, test_y = segment_opp_test(
-        x_test, y_test, input_width, n_sensor_val)
+        x_test, y_test, window_size, n_sensor_val)
     if verbose:
         print("signal segmented.")
 
