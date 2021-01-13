@@ -86,7 +86,7 @@ def segment_window_all(x_train, y_train, window_size, n_sensor_val):
     return window_segments, labels
 
 
-def sliding_window(x_train, y_train, x_validation, y_validation, x_test, y_test, window_size, n_sensor_val, shuffle=False, verbose=True):
+def sliding_window(x_train, y_train, x_validation, y_validation, x_test, y_test, window_size, n_sensor_val, shuffle=False, verbose=False):
     input_width = window_size
 
     if verbose:

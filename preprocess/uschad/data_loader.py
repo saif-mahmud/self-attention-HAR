@@ -1,10 +1,10 @@
 import pandas as pd
 
-from _data_reader import read_uschad
-from _sliding_window import sliding_window
+from ._data_reader import read_uschad
+from ._sliding_window import sliding_window
 
 
-def get_uschad_data(downsample=True, verbose=True):
+def get_uschad_data(downsample=True, verbose=False):
     train_subject = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     validation_subject = [11, 12]
     test_subject = [13, 14]
@@ -49,7 +49,3 @@ def get_uschad_data(downsample=True, verbose=True):
         x_train, y_train, x_validation, y_validation, x_test, y_test, window_size, n_sensor_val=len(x_columns))
 
     return train_x, train_y, val_x, val_y, test_x, test_y
-
-
-if __name__ == "__main__":
-    get_uschad_data()
