@@ -1,8 +1,9 @@
+import argparse
 import datetime
 import os
-import sys
 import time
 import zipfile
+from tqdm import tqdm
 
 import requests
 import yaml
@@ -24,7 +25,13 @@ def get_dataset(url: str, data_directory: str, file_name: str, unzip: bool):
         response = requests.get(url, stream=True)
         data_file = open(os.path.join(data_directory, file_name), 'wb')
 
-        for chunk in response.iter_content(chunk_size=1024):
+        total_size = int(response.headers.get("Content-Length", 0))
+        chunk_size = 1024
+
+        print('Dataset Size:', total_size)
+
+        for chunk in tqdm(iterable=response.iter_content(chunk_size=chunk_size), total=total_size / chunk_size,
+                          unit='KB', unit_scale=True, unit_divisor=chunk_size):
             data_file.write(chunk)
 
         data_file.close()
@@ -43,10 +50,13 @@ def get_dataset(url: str, data_directory: str, file_name: str, unzip: bool):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Self Attention Based HAR Model Training')
+    parser.add_argument('-d', '--dataset', default='pamap2', type=str, help='Name of Dataset for Model Training')
+    parser.add_argument('-z', '--unzip', action='store_true', help='Unzip downloaded dataset')
+    args = parser.parse_args()
+
     config_file = open('configs/data.yaml', mode='r')
     config = yaml.load(config_file, Loader=yaml.FullLoader)
 
-    dataset = str(sys.argv[1])
-
-    get_dataset(url=config[dataset]['source'], data_directory=config['data_dir']['raw'],
-                file_name=config[dataset]['destination'], unzip=True)
+    get_dataset(url=config[args.dataset]['source'], data_directory=config['data_dir']['raw'],
+                file_name=config[args.dataset]['destination'], unzip=args.unzip)
