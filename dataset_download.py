@@ -28,10 +28,8 @@ def get_dataset(url: str, data_directory: str, file_name: str, unzip: bool):
         total_size = int(response.headers.get("Content-Length", 0))
         chunk_size = 1024
 
-        print('Dataset Size:', total_size)
-
         for chunk in tqdm(iterable=response.iter_content(chunk_size=chunk_size), total=total_size / chunk_size,
-                          unit='KB', unit_scale=True, unit_divisor=chunk_size):
+                          unit='B', unit_scale=True, unit_divisor=chunk_size):
             data_file.write(chunk)
 
         data_file.close()
