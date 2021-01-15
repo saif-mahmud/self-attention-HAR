@@ -13,8 +13,7 @@ def get_dataset(url: str, data_directory: str, file_name: str, unzip: bool):
     if not os.path.exists('data/'):
         os.mkdir('data/')
 
-    print(datetime.datetime.fromtimestamp(
-        time.time()).strftime('%Y-%m-%d %H:%M:%S'))
+    print(datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'))
 
     if not os.path.exists(data_directory):
         os.makedirs(data_directory)
@@ -37,8 +36,7 @@ def get_dataset(url: str, data_directory: str, file_name: str, unzip: bool):
         if unzip:
             print(f'Unzipping [{file_name}] ...')
             with zipfile.ZipFile(os.path.join(data_directory, file_name), 'r') as zip_ref:
-                zip_ref.extractall(os.path.join(
-                    data_directory, file_name.split('.')[0]))
+                zip_ref.extractall(os.path.join(data_directory, file_name.split('.')[0]))
                 os.remove(os.path.join(data_directory, file_name))
 
         print('\n---DATASET DOWNLOAD COMPLETE---')
