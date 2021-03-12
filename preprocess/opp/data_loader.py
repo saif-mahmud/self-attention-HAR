@@ -11,26 +11,17 @@ from ._sliding_window import *
 def get_opp_data():
     data_config_file = open('configs/data.yaml', mode='r')
     data_config = yaml.load(data_config_file, Loader=yaml.FullLoader)
+    config = data_config['opp']
 
-    cols = [
-        38, 39, 40, 41, 42, 43, 44, 45, 46, 51, 52, 53, 54,
-        55, 56, 57, 58, 59, 64, 65, 66, 67, 68, 69, 70, 71,
-        72, 77, 78, 79, 80, 81, 82, 83, 84, 85, 90, 91, 92,
-        93, 94, 95, 96, 97, 98, 103, 104, 105, 106, 107, 108, 109,
-        110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122,
-        123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 250]
-    cols = np.array(cols) - 1
+    cols = np.array(config['feature_columns']) - 1
 
     train_test_split = {
-        'train': ['S1-ADL1.dat', 'S1-ADL3.dat', 'S1-ADL4.dat', 'S1-ADL5.dat', 'S1-Drill.dat', 'S2-ADL1.dat',
-                  'S2-ADL2.dat', 'S2-ADL3.dat', 'S2-Drill.dat', 'S3-ADL1.dat', 'S3-ADL2.dat', 'S3-ADL3.dat',
-                  'S3-Drill.dat', 'S4-ADL1.dat', 'S4-ADL2.dat', 'S4-ADL3.dat', 'S4-ADL4.dat', 'S4-ADL5.dat',
-                  'S4-Drill.dat'],
-        'test': ['S2-ADL4.dat', 'S2-ADL5.dat', 'S3-ADL4.dat', 'S3-ADL5.dat'],
-        'validation': ['S1-ADL2.dat']
+        'train': config['train_files'],
+        'test': config['test_files'],
+        'validation': config['validation_files']
     }
-    if not os.path.exists('data/processed/opportunity.h5'):
-        r = data_reader(train_test_split, cols)
+    if not os.path.exists(os.path.join(data_config['data_dir']['processed'], 'opportunity.h5')):
+        _ = data_reader(train_test_split, cols)
     return preprocess(n_sensor_val=len(cols) - 1)
 
 
@@ -65,12 +56,14 @@ def preprocess(n_sensor_val=77, verbose=False):
     config_file = open('configs/data.yaml', mode='r')
     config = yaml.load(config_file, Loader=yaml.FullLoader)['opp']
     window_size = config['window_size']
+
     if verbose:
         print("segmenting signal...")
+
     train_x, train_y = segment_opp(x_train, y_train, window_size, n_sensor_val)
     val_x, val_y = segment_opp(x_val, y_val, window_size, n_sensor_val)
-    test_x, test_y = segment_opp_test(
-        x_test, y_test, window_size, n_sensor_val)
+    test_x, test_y = segment_opp_test(x_test, y_test, window_size, n_sensor_val)
+
     if verbose:
         print("signal segmented.")
 
