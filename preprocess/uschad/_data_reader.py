@@ -24,7 +24,7 @@ def read_dir(directory):
 
 
 def read_uschad(save_csv=False):
-    subject, act_num, sensor_readings = read_dir('data/raw/USC-HAD')
+    subject, act_num, sensor_readings = read_dir('data/raw/uschad/USC-HAD')
 
     acc_x = []
     acc_y = []
