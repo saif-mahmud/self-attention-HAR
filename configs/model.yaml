@@ -1,3 +1,6 @@
+dirs:
+  saved_models: ./saved_model
+
 training:
   loss: 'categorical_crossentropy'
   optimizer: 'adam'

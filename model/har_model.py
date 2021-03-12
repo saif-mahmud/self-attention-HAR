@@ -6,7 +6,7 @@ from .self_attention.positional_encoding import PositionalEncoding
 from .sensor_attention import SensorAttention
 
 
-def get_model(n_timesteps, n_features, n_outputs, _dff=512, d_model=128, nh=4, dropout_rate=0.2, use_pe=True):
+def create_model(n_timesteps, n_features, n_outputs, _dff=512, d_model=128, nh=4, dropout_rate=0.2, use_pe=True):
     inputs = tf.keras.layers.Input(shape=(n_timesteps, n_features,))
     si, _ = SensorAttention(n_filters=128, kernel_size=3, dilation_rate=2)(inputs)
     x = tf.keras.layers.Conv1D(d_model, 1, activation='relu')(si)

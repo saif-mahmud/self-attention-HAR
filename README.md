@@ -3,7 +3,11 @@
 
 Dataset Download:
 
-    python dataset_download.py --dataset opp --unzip
+```shell
+python dataset_download.py --dataset opp --unzip
+```
+
+
 
 
 To run training:
