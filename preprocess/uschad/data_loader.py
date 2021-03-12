@@ -6,13 +6,6 @@ from ._sliding_window import sliding_window
 
 
 def get_uschad_data(downsample=True, verbose=False):
-    train_subject = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    validation_subject = [11, 12]
-    test_subject = [13, 14]
-
-    x_columns = ['acc_x', 'acc_y', 'acc_z', 'gyr_x', 'gyr_y', 'gyr_z']
-    y_columns = 'activity'
-
     config_file = open('configs/data.yaml', mode='r')
     config = yaml.load(config_file, Loader=yaml.FullLoader)['uschad']
     window_size = config['window_size']
@@ -20,17 +13,17 @@ def get_uschad_data(downsample=True, verbose=False):
     df = read_uschad()
     df = df.apply(pd.to_numeric)
 
-    train_df = df.loc[df['subject'].isin(train_subject)]
-    x_train = train_df[x_columns].values
-    y_train = train_df[y_columns].values
+    train_df = df.loc[df['subject'].isin(config['train_subject'])]
+    x_train = train_df[config['feature_column']].values
+    y_train = train_df[config['label_column']].values
 
-    validation_df = df.loc[df['subject'].isin(validation_subject)]
-    x_validation = validation_df[x_columns].values
-    y_validation = validation_df[y_columns].values
+    validation_df = df.loc[df['subject'].isin(config['validation_subject'])]
+    x_validation = validation_df[config['feature_column']].values
+    y_validation = validation_df[config['label_column']].values
 
-    test_df = df.loc[df['subject'].isin(test_subject)]
-    x_test = test_df[x_columns].values
-    y_test = test_df[y_columns].values
+    test_df = df.loc[df['subject'].isin(config['test_subject'])]
+    x_test = test_df[config['feature_column']].values
+    y_test = test_df[config['label_column']].values
 
     if downsample:
         x_train = x_train[::3, :]
@@ -49,6 +42,7 @@ def get_uschad_data(downsample=True, verbose=False):
             print("y_test shape(downsampled) =", y_test.shape)
 
     train_x, train_y, val_x, val_y, test_x, test_y = sliding_window(
-        x_train, y_train, x_validation, y_validation, x_test, y_test, window_size, n_sensor_val=len(x_columns))
+        x_train, y_train, x_validation, y_validation, x_test, y_test, window_size,
+        n_sensor_val=len(config['feature_column']))
 
     return train_x, train_y, val_x, val_y, test_x, test_y
