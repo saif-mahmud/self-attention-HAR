@@ -9,20 +9,21 @@ from ._data_reader import read_dataset
 from ._sliding_window import segment_pa2, segment_window_all
 
 
-def get_pamap2_data(input_width=33, n_sensor_val=18, overlap=.5, print_debug=True):
-    data_config_file = open('configs/data.yaml', mode='r')
-    data_config = yaml.load(data_config_file, Loader=yaml.FullLoader)
+def get_pamap2_data(verbose=False):
+    config_file = open('configs/data.yaml', mode='r')
+    data_config = yaml.load(config_file, Loader=yaml.FullLoader)
+    config = data_config['pamap2']
 
-    train_test_files = {'train': data_config['pamap2']['train_files'],
-                        'validation': data_config['pamap2']['validation_files'],
-                        'test': data_config['pamap2']['test_files']
+    train_test_files = {'train': config['train_files'],
+                        'validation': config['validation_files'],
+                        'test': config['test_files']
                         }
 
-    read_dataset(train_test_files=train_test_files, use_columns=data_config['pamap2']['feature_columns'],
-                 output_file_name=os.path.join(data_config['data_dir']['processed'],
-                                               data_config['pamap2']['output_file']))
+    read_dataset(train_test_files=train_test_files,
+                 use_columns=config['feature_columns'],
+                 output_file_name=os.path.join(data_config['data_dir']['processed'], config['output_file']))
 
-    path = os.path.join(data_config['data_dir']['processed'], data_config['pamap2']['output_file'])
+    path = os.path.join(data_config['data_dir']['processed'], config['output_file'])
     f = h5py.File(path, 'r')
 
     x_train = f.get('train').get('inputs')[()]
@@ -34,7 +35,7 @@ def get_pamap2_data(input_width=33, n_sensor_val=18, overlap=.5, print_debug=Tru
     x_test = f.get('test').get('inputs')[()]
     y_test = f.get('test').get('targets')[()]
 
-    if print_debug:
+    if verbose:
         print("x_train shape = ", x_train.shape)
         print("y_train shape =", y_train.shape)
 
@@ -51,7 +52,7 @@ def get_pamap2_data(input_width=33, n_sensor_val=18, overlap=.5, print_debug=Tru
     x_test = x_test[::3, :]
     y_test = y_test[::3]
 
-    if print_debug:
+    if verbose:
         print("x_train shape(downsampled) = ", x_train.shape)
         print("y_train shape(downsampled) =", y_train.shape)
         print("x_val shape(downsampled) = ", x_val.shape)
@@ -64,15 +65,12 @@ def get_pamap2_data(input_width=33, n_sensor_val=18, overlap=.5, print_debug=Tru
     x_val = np.where(np.isnan(x_val), np.ma.array(x_val, mask=np.isnan(x_val)).mean(axis=0), x_val)
     x_test = np.where(np.isnan(x_test), np.ma.array(x_test, mask=np.isnan(x_test)).mean(axis=0), x_test)
 
-    n_sensor_val = len(data_config['pamap2']['feature_columns']) - 1
-    input_width = input_width
-    print("segmenting signal...")
-    train_x, train_y = segment_pa2(x_train, y_train, input_width, n_sensor_val)
-    val_x, val_y = segment_pa2(x_val, y_val, input_width, n_sensor_val)
-    test_x, test_y = segment_window_all(x_test, y_test, input_width, n_sensor_val)
-    print("signal segmented.")
+    n_sensor_val = len(config['feature_columns']) - 1
+    train_x, train_y = segment_pa2(x_train, y_train, config['window_size'], n_sensor_val)
+    val_x, val_y = segment_pa2(x_val, y_val, config['window_size'], n_sensor_val)
+    test_x, test_y = segment_window_all(x_test, y_test, config['window_size'], n_sensor_val)
 
-    if print_debug:
+    if verbose:
         print("train_x shape =", train_x.shape)
         print("train_y shape =", train_y.shape)
         print('train_y distribution', np.unique(train_y, return_counts=True))
@@ -89,7 +87,7 @@ def get_pamap2_data(input_width=33, n_sensor_val=18, overlap=.5, print_debug=Tru
     test_y = tf.keras.utils.to_categorical(test_y, num_classes=19)
     val_y = tf.keras.utils.to_categorical(val_y, num_classes=19)
 
-    if print_debug:
+    if verbose:
         print("unique test_y", np.unique(test_y))
         print("unique train_y", np.unique(train_y))
         print("test_y[1]=", test_y[1])
