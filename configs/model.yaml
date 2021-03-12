@@ -7,7 +7,7 @@ training:
   metrics: [ 'accuracy' ]
 
 pamap2:
-  epochs: 15
+  epochs: 3
   batch_size: 128
   d_model: 128
   dropout: 0.2

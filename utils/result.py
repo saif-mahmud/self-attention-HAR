@@ -15,12 +15,6 @@ def generate_result(dataset, ground_truth, prediction):
     print(classification_report(np.argmax(ground_truth, axis=1), np.argmax(prediction, axis=1),
                                 labels=range(len(activity_names)), target_names=activity_names, zero_division=1))
 
-    out_res = open(os.path.join('results', dataset + '_classification_report.txt'))
-    print(classification_report(np.argmax(ground_truth, axis=1), np.argmax(prediction, axis=1),
-                                labels=range(len(activity_names)), target_names=activity_names, zero_division=1),
-          file=out_res)
-    out_res.close()
-
     confm = confusion_matrix(np.argmax(ground_truth, axis=1), np.argmax(prediction, axis=1),
                              labels=range(len(activity_names)))
     print(confm)
