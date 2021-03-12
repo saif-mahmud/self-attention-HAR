@@ -1,22 +1,63 @@
 # Human Activity Recognition from Wearable Sensor Data Using Self-Attention
-#### [24th European Conference on Artificial Intelligence - ECAI 2020]
+
+Tensorflow 2.x implementation of "Human Activity Recognition from Wearable Sensor Data Using Self-Attention",
+[24th European Conference on Artificial Intelligence, ECAI 2020](https://digital.ecai2020.eu/)
+by [Saif Mahmud](https://saif-mahmud.github.io/) and M. Tanjid Hasan Tonmoy et al.
+
+[ [arXiV](https://arxiv.org/abs/2003.09018) ] [ [IOS Press](https://ebooks.iospress.nl/publication/55031) ]
 
 ### ** This repository is under maintenance. The final version of code will be released very soon **
 
-Dataset Download:
+### Installation
+
+To install the dependencies in `python3` environment, run:
 
 ```shell
-python dataset_download.py --dataset opp --unzip
+pip install -r requirements.txt
 ```
 
+### Dataset Download
 
+To download dataset and place it under `data` directory for model training and inference, run the
+script `dataset_download.py` with following commad:
 
+```shell
+python dataset_download.py --dataset DATASET --unzip
+```
 
-To run training:
+Here, the name of dataset in command line argument `DATASET` of this project will be as follows:
 
-    python main.py -d pamap2
+    DATASET = pamap2 / opp / uschad / skoda
 
-Citation:
+For example, to download `PAMAP2` dataset and unzip under `data` directory, run the following command from project root:
+
+```shell
+python dataset_download.py --dataset pamap2 --unzip
+```
+
+### Training and Evaluation
+
+Python script `main.py` will be used for model training, inference and performance evaluation. The arguments for this
+script is as follows:
+
+    -h, --help         show this help message and exit 
+    --train            Training Mode 
+    --test             (Testing / Evaluation) Mode 
+    --dataset DATASET  Name of Dataset for Model Training or Inference
+
+For example, in order to train model on PAMAP2 dataset and evaluate model performance, run the following command:
+
+```shell
+python main.py --train --test --dataset pamap2
+```
+
+If the pretrained weights are stored in `saved_model` directory and to infer with that, run the following command:
+
+```shell
+python main.py --test --dataset pamap2
+```
+
+### Citation
 
     @inproceedings{ECAI2020HAR-SaifTanjid,
       title={Human Activity Recognition from Wearable Sensor Data Using Self-Attention},
