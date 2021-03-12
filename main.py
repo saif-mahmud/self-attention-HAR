@@ -1,14 +1,16 @@
 import argparse
+import os
 import warnings
 
 import tensorflow as tf
 import yaml
-import os
+
 from model.har_model import create_model
+from preprocess.opp.data_loader import get_opp_data
 from preprocess.pamap2.data_loader import get_pamap2_data
 from preprocess.skoda.data_loader import get_skoda_data
-from preprocess.opp.data_loader import get_opp_data
 from preprocess.uschad.data_loader import get_uschad_data
+from utils.result import generate_result
 
 tf.keras.backend.clear_session()
 warnings.filterwarnings("ignore")
@@ -82,12 +84,17 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     model_config_file = open('configs/model.yaml', mode='r')
-    model_config = yaml.load(model_config_file, Loader=yaml.FullLoader)
+    model_cfg = yaml.load(model_config_file, Loader=yaml.FullLoader)
 
     train_x, train_y, val_x, val_y, test_x, test_y = get_data(dataset=args.dataset)
 
-    train_model(dataset=args.dataset,
-                model_config=model_config,
-                train_x=train_x, train_y=train_y,
-                val_x=val_x, val_y=val_y,
-                save_model=args.save_model)
+    if args.train:
+        train_model(dataset=args.dataset,
+                    model_config=model_cfg,
+                    train_x=train_x, train_y=train_y,
+                    val_x=val_x, val_y=val_y,
+                    save_model=args.save_model)
+
+    if args.test:
+        pred = test_model(dataset=args.dataset, model_config=model_cfg, test_x=test_x)
+        generate_result(dataset=args.dataset, ground_truth=test_y, prediction=pred)
