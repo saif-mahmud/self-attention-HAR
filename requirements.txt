@@ -1,4 +1,4 @@
-tensorflow==2.4.0
+tensorflow==2.3.1
 yaml==0.2.5
 pyyaml==5.3.1
 h5py==2.10.0
@@ -9,3 +9,4 @@ matplotlib==3.2.2
 pandas==1.0.5
 requests==2.24.0
 tqdm==4.47.0
+seaborn==0.10.1
