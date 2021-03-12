@@ -16,10 +16,7 @@ warnings.filterwarnings("ignore")
 
 def get_data(dataset: str):
     if dataset == 'pamap2':
-        (train_x, train_y), (val_x, val_y), (test_x, test_y), y_test = get_pamap2_data(input_width=33,
-                                                                                       n_sensor_val=18,
-                                                                                       overlap=.5,
-                                                                                       print_debug=True)
+        (train_x, train_y), (val_x, val_y), (test_x, test_y), y_test = get_pamap2_data()
 
         return train_x, train_y, val_x, val_y, test_x, test_y
 
@@ -62,9 +59,23 @@ def train_model(dataset: str, model_config, train_x, train_y, val_x, val_y, save
         model.save(os.path.join(model_config['dirs']['saved_models'], dataset))
 
 
+def test_model(dataset: str, model_config, test_x):
+    if os.path.exists(os.path.join(model_config['dirs']['saved_models'], dataset)):
+        model = tf.keras.models.load_model(os.path.join(model_config['dirs']['saved_models'], dataset))
+    else:
+        print('PLEASE, TRAIN THE MODEL FIRST OR PUT PRETRAINED MODEL IN "saved_model" DIRECTORY')
+        return
+
+    pred = model.predict(test_x)
+
+    return pred
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Self Attention Based HAR Model Training')
 
+    parser.add_argument('--train', action='store_true', default=False, help='Training Mode')
+    parser.add_argument('--test', action='store_true', default=False, help='Testing Mode')
     parser.add_argument('-d', '--dataset', default='pamap2', type=str, help='Name of Dataset for Model Training')
     parser.add_argument('-s', '--save_model', action='store_true', default=False, help='Save Trained Model')
 
