@@ -48,14 +48,14 @@ def segment_window_all(x_train, y_train, window_size, n_sensor_val):
     return window_segments, labels
 
 
-def down_sample(x_train, y_train, x_test, y_test, x_validation, y_validation, print_debug=True):
+def down_sample(x_train, y_train, x_test, y_test, x_validation, y_validation, verbose=True):
     x_train = x_train[::3, :]
     y_train = y_train[::3]
     x_validation = x_validation[::3, :]
     y_validation = y_validation[::3]
     x_test = x_test[::3, :]
     y_test = y_test[::3]
-    if print_debug:
+    if verbose:
         print("x_train shape(downsampled) = ", x_train.shape)
         print("y_train shape(downsampled) =", y_train.shape)
         print("x_val shape(downsampled) = ", x_validation.shape)
@@ -65,7 +65,7 @@ def down_sample(x_train, y_train, x_test, y_test, x_validation, y_validation, pr
     return x_train, y_train, x_test, y_test, x_validation, y_validation
 
 
-def segment_data_window(x_train, y_train, x_test, y_test, x_validation, y_validation, input_width=20, print_debug=True,
+def segment_data_window(x_train, y_train, x_test, y_test, x_validation, y_validation, input_width=20, verbose=True,
                         shuffle=True):
     n_sensor_val = x_train.shape[1]
 
@@ -84,7 +84,7 @@ def segment_data_window(x_train, y_train, x_test, y_test, x_validation, y_valida
     # test_x, test_y = segment_window_test_sample(x_test,y_test,input_width,n_sensor_val)
     # print("signal segmented.")
 
-    if print_debug:
+    if verbose:
         print("train_x shape =", train_x.shape)
         print("train_y shape =", train_y.shape)
         print('train_y distribution', np.unique(train_y, return_counts=True))
@@ -101,7 +101,7 @@ def segment_data_window(x_train, y_train, x_test, y_test, x_validation, y_valida
     test_y = tf.keras.utils.to_categorical(test_y)
     val_y = tf.keras.utils.to_categorical(val_y)
 
-    if print_debug:
+    if verbose:
         print("unique test_y", np.unique(test_y))
         print("unique train_y", np.unique(train_y))
         print("test_y[1]=", test_y[1])

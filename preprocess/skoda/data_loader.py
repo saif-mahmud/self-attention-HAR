@@ -18,6 +18,6 @@ def get_skoda_data():
     (train_x, train_y), (val_x, val_y), (test_x, test_y) = segment_data_window(x_train, y_train, x_test, y_test,
                                                                                x_validation, y_validation,
                                                                                input_width=data_config['skoda']['window_size'],
-                                                                               print_debug=True, shuffle=True)
+                                                                               verbose=True, shuffle=True)
 
     return (train_x, train_y), (val_x, val_y), (test_x, test_y)
