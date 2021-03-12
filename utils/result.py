@@ -27,4 +27,4 @@ def generate_result(dataset, ground_truth, prediction):
     out_fig = dataset + '_confusion_matrix.png'
     plt.savefig(os.path.join('results', out_fig))
 
-    print(f'Results generated for {dataset}: Check "./results" direcotry')
+    print(f'\nConfusion matrix plot generated for {dataset}: Check "./results" direcotry')

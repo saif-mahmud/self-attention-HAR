@@ -12,12 +12,6 @@ pamap2:
   feature_columns: [ 1, 4, 5, 6, 10, 11, 12, 21, 22, 23, 27, 28, 29, 38, 39, 40, 44, 45, 46 ]
   window_size: 33
 
-skoda:
-  source: http://har-dataset.org/lib/exe/fetch.php?media=wiki:dataset:skodaminicp:skodaminicp_2015_08.zip
-  destination: skoda.zip
-  data_file: data/raw/SkodaMiniCP_2015_08/right_classall_clean.mat
-  window_size: 49
-
 opp:
   source: https://archive.ics.uci.edu/ml/machine-learning-databases/00226/OpportunityUCIDataset.zip
   destination: OpportunityUCIDataset.zip
@@ -36,3 +30,9 @@ uschad:
   feature_column: [ 'acc_x', 'acc_y', 'acc_z', 'gyr_x', 'gyr_y', 'gyr_z' ]
   label_column: 'activity'
   window_size: 32
+
+skoda:
+  source: http://har-dataset.org/lib/exe/fetch.php?media=wiki:dataset:skodaminicp:skodaminicp_2015_08.zip
+  destination: skoda.zip
+  data_file: data/raw/SkodaMiniCP_2015_08/right_classall_clean.mat
+  window_size: 49

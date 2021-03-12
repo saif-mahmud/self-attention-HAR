@@ -1,8 +1,20 @@
 {
-    "0": "null",
-    "1": "Relaxing",
-    "2": "Coffee time",
-    "3": "Early morning",
-    "4": "Cleanup",
-    "5": "Sandwich time"
+    "0": "Other",
+    "1": "Open Door 1",
+    "2": "Open Door 2",
+    "3": "Close Door 1",
+    "4": "Close Door 2",
+    "5": "Open Fridge",
+    "6": "Close Fridge",
+    "7": "Open Dishwasher",
+    "8": "Close Dishwasher",
+    "9": "Open Drawer 1",
+    "10": "Close Drawer 1",
+    "11": "Open Drawer 2",
+    "12": "Close Drawer 2",
+    "13": "Open Drawer 3",
+    "14": "Close Drawer 3",
+    "15": "Clean Table",
+    "16": "Drink from Cup",
+    "17": "Toggle Switch"
 }

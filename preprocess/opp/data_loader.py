@@ -22,6 +22,7 @@ def get_opp_data():
     }
     if not os.path.exists(os.path.join(data_config['data_dir']['processed'], 'opportunity.h5')):
         _ = data_reader(train_test_split, cols)
+
     return preprocess(n_sensor_val=len(cols) - 1)
 
 
