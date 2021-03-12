@@ -5,11 +5,12 @@ data_dir:
 pamap2:
   source: https://archive.ics.uci.edu/ml/machine-learning-databases/00231/PAMAP2_Dataset.zip
   destination: pamap2.zip
-  train_files: [ 'subject101.dat', 'subject102.dat','subject103.dat','subject104.dat', 'subject107.dat', 'subject108.dat', 'subject109.dat' ]
+  train_files: [ 'subject101.dat', 'subject102.dat', 'subject103.dat','subject104.dat', 'subject107.dat', 'subject108.dat', 'subject109.dat' ]
   validation_files: [ 'subject105.dat' ]
   test_files: [ 'subject106.dat' ]
-  feature_columns: [ 1, 4, 5, 6, 10, 11, 12, 21, 22, 23, 27, 28, 29, 38, 39, 40, 44, 45, 46 ]
   output_file: 'pamap2_106.h5'
+  feature_columns: [ 1, 4, 5, 6, 10, 11, 12, 21, 22, 23, 27, 28, 29, 38, 39, 40, 44, 45, 46 ]
+  window_size: 33
 
 skoda:
   source: http://har-dataset.org/lib/exe/fetch.php?media=wiki:dataset:skodaminicp:skodaminicp_2015_08.zip
@@ -25,9 +26,9 @@ opp:
 uschad:
   source: http://sipi.usc.edu/had/USC-HAD.zip
   destination: USC-HAD.zip
-  window_size: 32
-  train_subject: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  validation_subject: [11, 12]
-  test_subject: [13, 14]
-  feature_column: ['acc_x', 'acc_y', 'acc_z', 'gyr_x', 'gyr_y', 'gyr_z']
+  train_subject: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+  validation_subject: [ 11, 12 ]
+  test_subject: [ 13, 14 ]
+  feature_column: [ 'acc_x', 'acc_y', 'acc_z', 'gyr_x', 'gyr_y', 'gyr_z' ]
   label_column: 'activity'
+  window_size: 32
