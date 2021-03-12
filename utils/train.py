@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 sys.path.append("../")
 
 
-def train_model(dataset: str, model_config, train_x, train_y, val_x, val_y, save_model=False):
+def train_model(dataset: str, model_config, train_x, train_y, val_x, val_y, save_model=True):
     n_timesteps, n_features, n_outputs = train_x.shape[1], train_x.shape[2], train_y.shape[1]
 
     model = create_model(n_timesteps, n_features, n_outputs, d_model=model_config[dataset]['d_model'])

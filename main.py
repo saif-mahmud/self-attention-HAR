@@ -17,7 +17,6 @@ if __name__ == '__main__':
 
     parser.add_argument('--train', action='store_true', default=False, help='Training Mode')
     parser.add_argument('--test', action='store_true', default=False, help='Testing Mode')
-    parser.add_argument('--save_model', action='store_true', default=False, help='Save Trained Model')
     parser.add_argument('--dataset', default='pamap2', type=str, help='Name of Dataset for Model Training')
 
     args = parser.parse_args()
@@ -32,8 +31,7 @@ if __name__ == '__main__':
         train_model(dataset=args.dataset,
                     model_config=model_cfg,
                     train_x=train_x, train_y=train_y,
-                    val_x=val_x, val_y=val_y,
-                    save_model=args.save_model)
+                    val_x=val_x, val_y=val_y)
 
     if args.test:
         print('[MODEL INFERENCE]')
