@@ -12,11 +12,13 @@ def generate_result(dataset, ground_truth, prediction):
     activity_map = json.load(open(os.path.join('configs', 'activity_maps', dataset + '.json')))
     activity_names = list(activity_map.values())
 
+    print('\n[CLASSIFICATION REPORT]')
     print(classification_report(np.argmax(ground_truth, axis=1), np.argmax(prediction, axis=1),
                                 labels=range(len(activity_names)), target_names=activity_names, zero_division=1))
 
     confm = confusion_matrix(np.argmax(ground_truth, axis=1), np.argmax(prediction, axis=1),
                              labels=range(len(activity_names)))
+    print('\n[CONFUSION MATRIX]')
     print(confm)
 
     df_cm = pd.DataFrame(confm, index=activity_names, columns=activity_names)

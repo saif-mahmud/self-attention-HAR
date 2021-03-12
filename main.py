@@ -68,7 +68,7 @@ def test_model(dataset: str, model_config, test_x):
         print('PLEASE, TRAIN THE MODEL FIRST OR PUT PRETRAINED MODEL IN "saved_model" DIRECTORY')
         return
 
-    pred = model.predict(test_x)
+    pred = model.predict(test_x, batch_size=model_config[dataset]['batch_size'], verbose=1)
 
     return pred
 
@@ -78,8 +78,8 @@ if __name__ == '__main__':
 
     parser.add_argument('--train', action='store_true', default=False, help='Training Mode')
     parser.add_argument('--test', action='store_true', default=False, help='Testing Mode')
-    parser.add_argument('-d', '--dataset', default='pamap2', type=str, help='Name of Dataset for Model Training')
-    parser.add_argument('-s', '--save_model', action='store_true', default=False, help='Save Trained Model')
+    parser.add_argument('--save_model', action='store_true', default=False, help='Save Trained Model')
+    parser.add_argument('--dataset', default='pamap2', type=str, help='Name of Dataset for Model Training')
 
     args = parser.parse_args()
 
