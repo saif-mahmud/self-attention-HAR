@@ -1,6 +1,8 @@
 # Human Activity Recognition from Wearable Sensor Data Using Self-Attention
 #### [24th European Conference on Artificial Intelligence - ECAI 2020]
 
+### ** This repository is under maintenance. The final version of code will be released very soon **
+
 Dataset Download:
 
 ```shell
@@ -12,7 +14,7 @@ python dataset_download.py --dataset opp --unzip
 
 To run training:
 
-    python train.py -d pamap2
+    python main.py -d pamap2
 
 Citation:
 
