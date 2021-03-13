@@ -48,13 +48,13 @@ script is as follows:
 For example, in order to train model on PAMAP2 dataset and evaluate model performance, run the following command:
 
 ```shell
-python main.py --train --test --dataset pamap2
+TF_CPP_MIN_LOG_LEVEL=3 python main.py --train --test --dataset pamap2
 ```
 
 If the pretrained weights are stored in `saved_model` directory and to infer with that, run the following command:
 
 ```shell
-python main.py --test --dataset pamap2
+TF_CPP_MIN_LOG_LEVEL=3 python main.py --test --dataset pamap2
 ```
 
 ### Citation

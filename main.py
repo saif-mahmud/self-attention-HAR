@@ -1,5 +1,4 @@
 import argparse
-import os
 import warnings
 
 import yaml
@@ -8,8 +7,6 @@ from utils.data import get_data
 from utils.result import generate_result
 from utils.test import test_model
 from utils.train import train_model
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 warnings.filterwarnings("ignore")
 
