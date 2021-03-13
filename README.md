@@ -25,7 +25,7 @@ python dataset_download.py --dataset DATASET --unzip
 
 Here, the name of dataset in command line argument `DATASET` of this project will be as follows:
 
-    DATASET = pamap2 / opp / uschad / skoda
+    DATASET = < pamap2 / opp / uschad / skoda >
 
 For example, to download `PAMAP2` dataset and unzip under `data` directory, run the following command from project root:
 
