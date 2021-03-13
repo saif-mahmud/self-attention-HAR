@@ -1,6 +1,8 @@
+import csv
+
 import h5py
 import numpy as np
-import csv
+from tqdm import tqdm
 
 
 class data_reader:
@@ -35,7 +37,7 @@ class data_reader:
         # names are from label_legend.txt of Opportunity dataset
         # except 0-ie Other, which is an additional label
         label_map = [
-            (0,      'Other'),
+            (0, 'Other'),
             (406516, 'Open Door 1'),
             (406517, 'Open Door 2'),
             (404516, 'Close Door 1'),
@@ -67,8 +69,7 @@ class data_reader:
     def readOpportunityFiles(self, filelist, cols, labelToId):
         data = []
         labels = []
-        for i, filename in enumerate(filelist):
-            print('Reading file %d of %d' % (i+1, len(filelist)))
+        for i, filename in tqdm(enumerate(filelist)):
             with open('data/raw/opp/OpportunityUCIDataset/dataset/%s' % filename, 'r') as f:
                 reader = csv.reader(f, delimiter=' ')
                 for line in reader:
@@ -79,4 +80,4 @@ class data_reader:
                         data.append([float(x) / 1000 for x in elem[:-1]])
                         labels.append(labelToId[elem[-1]])
 
-        return {'inputs': np.asarray(data), 'targets': np.asarray(labels, dtype=int)+1}
+        return {'inputs': np.asarray(data), 'targets': np.asarray(labels, dtype=int) + 1}
