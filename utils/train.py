@@ -23,8 +23,13 @@ def train_model(dataset: str, model_config, train_x, train_y, val_x, val_y, save
     model.compile(**model_config['training'])
     model.summary()
 
-    earlyStopping = tf.keras.callbacks.EarlyStopping(**model_config['callbacks']['early_stop'])
-    reduce_lr_loss = tf.keras.callbacks.ReduceLROnPlateau(**model_config['callbacks']['lr_reduce'])
+    earlyStopping = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=5, verbose=1, mode='max')
+    reduce_lr_loss = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss',
+                                                          factor=0.1,
+                                                          patience=4,
+                                                          verbose=1,
+                                                          min_delta=1e-4,
+                                                          mode='min')
 
     model.fit(train_x, train_y,
               epochs=model_config[dataset]['epochs'],

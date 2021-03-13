@@ -1,21 +1,6 @@
 dirs:
   saved_models: ./saved_model
 
-callbacks:
-  early_stop:
-    monitor: 'val_accuracy'
-    patience: 5
-    verbose: 1
-    mode: 'max'
-
-  lr_reduce:
-    monitor: 'val_loss'
-    factor: 0.1
-    patience: 4
-    verbose: 1
-    min_delta: 1e-4
-    mode: 'min'
-
 training:
   loss: 'categorical_crossentropy'
   optimizer: 'adam'

@@ -25,13 +25,13 @@ if __name__ == '__main__':
     train_x, train_y, val_x, val_y, test_x, test_y = get_data(dataset=args.dataset)
 
     if args.train:
-        print('[MODEL TRAINING]')
+        print('\n[MODEL TRAINING]')
         train_model(dataset=args.dataset,
                     model_config=model_cfg,
                     train_x=train_x, train_y=train_y,
                     val_x=val_x, val_y=val_y)
 
     if args.test:
-        print('[MODEL INFERENCE]')
+        print('\n[MODEL INFERENCE]')
         pred = test_model(dataset=args.dataset, model_config=model_cfg, test_x=test_x)
         generate_result(dataset=args.dataset, ground_truth=test_y, prediction=pred)
