@@ -98,6 +98,7 @@ class AttentionWithContext(tf.keras.layers.Layer):
 
     def compute_output_shape(self, input_shape):
         if self.return_attention:
-            return tf.TensorShape([input_shape[0].value, input_shape[-1].value], [input_shape[0].value, input_shape[1].value])
+            return tf.TensorShape([input_shape[0].value, input_shape[-1].value],
+                                  [input_shape[0].value, input_shape[1].value])
         else:
             return tf.TensorShape([input_shape[0].value, input_shape[-1].value])

@@ -48,7 +48,7 @@ def segment_window_all(x_train, y_train, window_size, n_sensor_val):
     return window_segments, labels
 
 
-def down_sample(x_train, y_train, x_test, y_test, x_validation, y_validation, verbose=True):
+def down_sample(x_train, y_train, x_test, y_test, x_validation, y_validation, verbose=False):
     x_train = x_train[::3, :]
     y_train = y_train[::3]
     x_validation = x_validation[::3, :]
@@ -65,7 +65,7 @@ def down_sample(x_train, y_train, x_test, y_test, x_validation, y_validation, ve
     return x_train, y_train, x_test, y_test, x_validation, y_validation
 
 
-def segment_data_window(x_train, y_train, x_test, y_test, x_validation, y_validation, input_width=20, verbose=True,
+def segment_data_window(x_train, y_train, x_test, y_test, x_validation, y_validation, input_width=20, verbose=False,
                         shuffle=True):
     n_sensor_val = x_train.shape[1]
 
