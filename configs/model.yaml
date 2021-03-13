@@ -1,31 +1,50 @@
 dirs:
   saved_models: ./saved_model
 
+callbacks:
+  early_stop:
+    monitor: 'val_accuracy'
+    patience: 5
+    verbose: 1
+    mode: 'max'
+
+  lr_reduce:
+    monitor: 'val_loss'
+    factor: 0.1
+    patience: 4
+    verbose: 1
+    min_delta: 1e-4
+    mode: 'min'
+
 training:
   loss: 'categorical_crossentropy'
   optimizer: 'adam'
   metrics: [ 'accuracy' ]
 
 pamap2:
-  epochs: 15
+  epochs: 50
   batch_size: 128
   d_model: 128
   dropout: 0.2
   n_head: 4
 
 skoda:
-  epochs: 10
+  epochs: 50
   batch_size: 256
   d_model: 128
+  dropout: 0.2
+  n_head: 4
 
 opp:
-  epochs: 1
+  epochs: 50
   batch_size: 256
   d_model: 128
+  dropout: 0.2
   n_head: 4
 
 uschad:
-  epochs: 1
+  epochs: 50
   batch_size: 256
   d_model: 128
+  dropout: 0.2
   n_head: 4

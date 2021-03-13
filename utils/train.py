@@ -15,18 +15,16 @@ sys.path.append("../")
 def train_model(dataset: str, model_config, train_x, train_y, val_x, val_y, save_model=True):
     n_timesteps, n_features, n_outputs = train_x.shape[1], train_x.shape[2], train_y.shape[1]
 
-    model = create_model(n_timesteps, n_features, n_outputs, d_model=model_config[dataset]['d_model'])
+    model = create_model(n_timesteps, n_features, n_outputs,
+                         d_model=model_config[dataset]['d_model'],
+                         nh=model_config[dataset]['n_head'],
+                         dropout_rate=model_config[dataset]['dropout'])
 
     model.compile(**model_config['training'])
     model.summary()
 
-    earlyStopping = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=5, verbose=1, mode='max')
-    reduce_lr_loss = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss',
-                                                          factor=0.1,
-                                                          patience=4,
-                                                          verbose=1,
-                                                          min_delta=1e-4,
-                                                          mode='min')
+    earlyStopping = tf.keras.callbacks.EarlyStopping(**model_config['callbacks']['early_stop'])
+    reduce_lr_loss = tf.keras.callbacks.ReduceLROnPlateau(**model_config['callbacks']['lr_reduce'])
 
     model.fit(train_x, train_y,
               epochs=model_config[dataset]['epochs'],

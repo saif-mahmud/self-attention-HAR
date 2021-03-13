@@ -1,7 +1,7 @@
 import argparse
+import os
 import warnings
 
-import tensorflow as tf
 import yaml
 
 from utils.data import get_data
@@ -9,7 +9,8 @@ from utils.result import generate_result
 from utils.test import test_model
 from utils.train import train_model
 
-tf.keras.backend.clear_session()
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 warnings.filterwarnings("ignore")
 
 if __name__ == '__main__':

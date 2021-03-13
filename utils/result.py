@@ -17,7 +17,7 @@ def generate_result(dataset, ground_truth, prediction):
                                 labels=range(len(activity_names)), target_names=activity_names, zero_division=1))
 
     confm = confusion_matrix(np.argmax(ground_truth, axis=1), np.argmax(prediction, axis=1),
-                             labels=range(len(activity_names)))
+                             labels=range(len(activity_names)), normalize='true')
     print('\n[CONFUSION MATRIX]')
     print(confm)
 
