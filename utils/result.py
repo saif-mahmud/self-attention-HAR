@@ -23,7 +23,7 @@ def generate_result(dataset, ground_truth, prediction):
 
     df_cm = pd.DataFrame(confm, index=activity_names, columns=activity_names)
     plt.figure(figsize=(10, 8))
-    sns.heatmap(df_cm, annot=True, fmt='d', cmap="YlGnBu")
+    sns.heatmap(df_cm, annot=True, fmt='.5f', cmap="YlGnBu")
     out_fig = dataset + '_confusion_matrix.png'
     plt.savefig(os.path.join('results', out_fig))
 

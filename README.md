@@ -45,7 +45,7 @@ script is as follows:
     --test             (Testing / Evaluation) Mode 
     --dataset DATASET  Name of Dataset for Model Training or Inference
 
-For example, in order to train model on PAMAP2 dataset and evaluate model performance, run the following command:
+For example, in order to train model on `PAMAP2` dataset and evaluate model performance, run the following command:
 
 ```shell
 TF_CPP_MIN_LOG_LEVEL=3 python main.py --train --test --dataset pamap2
