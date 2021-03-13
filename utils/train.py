@@ -39,4 +39,5 @@ def train_model(dataset: str, model_config, train_x, train_y, val_x, val_y, save
               callbacks=[reduce_lr_loss, earlyStopping])
 
     if save_model:
+        print(f'Saving trained model for {dataset}')
         model.save(os.path.join(model_config['dirs']['saved_models'], dataset))
