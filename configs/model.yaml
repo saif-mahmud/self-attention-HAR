@@ -7,28 +7,24 @@ training:
   metrics: [ 'accuracy' ]
 
 pamap2:
-  epochs: 100
   batch_size: 128
   d_model: 128
   dropout: 0.2
   n_head: 4
 
 skoda:
-  epochs: 100
   batch_size: 256
   d_model: 128
   dropout: 0.2
   n_head: 4
 
 opp:
-  epochs: 100
   batch_size: 256
   d_model: 128
   dropout: 0.2
   n_head: 4
 
 uschad:
-  epochs: 100
   batch_size: 256
   d_model: 128
   dropout: 0.2

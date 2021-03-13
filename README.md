@@ -42,13 +42,14 @@ script is as follows:
 
     -h, --help         show this help message and exit 
     --train            Training Mode 
-    --test             (Testing / Evaluation) Mode 
+    --test             (Testing / Evaluation) Mode
+    --epochs EPOCHS    Number of Epochs for Training
     --dataset DATASET  Name of Dataset for Model Training or Inference
 
-For example, in order to train model on `PAMAP2` dataset and evaluate model performance, run the following command:
+For example, in order to train model for `75` epochs on `PAMAP2` dataset and evaluate model performance, run the following command:
 
 ```shell
-TF_CPP_MIN_LOG_LEVEL=3 python main.py --train --test --dataset pamap2
+TF_CPP_MIN_LOG_LEVEL=3 python main.py --train --test --epochs 75 --dataset pamap2
 ```
 
 If the pretrained weights are stored in `saved_model` directory and to infer with that, run the following command:

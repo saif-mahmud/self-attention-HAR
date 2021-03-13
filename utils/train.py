@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 sys.path.append("../")
 
 
-def train_model(dataset: str, model_config, train_x, train_y, val_x, val_y, save_model=True):
+def train_model(dataset: str, model_config, train_x, train_y, val_x, val_y, epochs, save_model=True):
     n_timesteps, n_features, n_outputs = train_x.shape[1], train_x.shape[2], train_y.shape[1]
 
     model = create_model(n_timesteps, n_features, n_outputs,
@@ -32,7 +32,7 @@ def train_model(dataset: str, model_config, train_x, train_y, val_x, val_y, save
                                                           mode='min')
 
     model.fit(train_x, train_y,
-              epochs=model_config[dataset]['epochs'],
+              epochs=epochs,
               batch_size=model_config[dataset]['batch_size'],
               verbose=1,
               validation_data=(val_x, val_y),
