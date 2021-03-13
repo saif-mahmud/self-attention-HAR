@@ -18,12 +18,10 @@ def generate_result(dataset, ground_truth, prediction):
 
     confm = confusion_matrix(np.argmax(ground_truth, axis=1), np.argmax(prediction, axis=1),
                              labels=range(len(activity_names)), normalize='true')
-    print('\n[CONFUSION MATRIX]')
-    print(confm)
 
     df_cm = pd.DataFrame(confm, index=activity_names, columns=activity_names)
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(df_cm, annot=True, fmt='.5f', cmap="YlGnBu")
+    plt.figure(figsize=(12, 10))
+    sns.heatmap(df_cm, annot=True, fmt='.3f', cmap="YlGnBu")
     out_fig = dataset + '_confusion_matrix.png'
     plt.savefig(os.path.join('results', out_fig))
 
