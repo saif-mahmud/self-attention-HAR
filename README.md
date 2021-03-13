@@ -6,9 +6,7 @@ by [Saif Mahmud](https://saif-mahmud.github.io/) and M. Tanjid Hasan Tonmoy et a
 
 [ [arXiV](https://arxiv.org/abs/2003.09018) ] [ [IOS Press](https://ebooks.iospress.nl/publication/55031) ]
 
-### ** This repository is under maintenance. The final version of code will be released very soon **
-
-### Installation
+## Installation
 
 To install the dependencies in `python3` environment, run:
 
@@ -16,7 +14,7 @@ To install the dependencies in `python3` environment, run:
 pip install -r requirements.txt
 ```
 
-### Dataset Download
+## Dataset Download
 
 To download dataset and place it under `data` directory for model training and inference, run the
 script `dataset_download.py` with following commad:
@@ -35,7 +33,12 @@ For example, to download `PAMAP2` dataset and unzip under `data` directory, run 
 python dataset_download.py --dataset pamap2 --unzip
 ```
 
-### Training and Evaluation
+## Pretrained Models
+
+The `saved_model` directory contains pretrained models for `PAMAP2`, `Opportuninty`, `USC-HAD` and `Skoda` dataset.
+These models can be used directly for inference and performance evaluation as described in the following section.
+
+## Training and Evaluation
 
 Python script `main.py` will be used for model training, inference and performance evaluation. The arguments for this
 script is as follows:
@@ -46,7 +49,8 @@ script is as follows:
     --epochs EPOCHS    Number of Epochs for Training
     --dataset DATASET  Name of Dataset for Model Training or Inference
 
-For example, in order to train model for `75` epochs on `PAMAP2` dataset and evaluate model performance, run the following command:
+For example, in order to train model for `75` epochs on `PAMAP2` dataset and evaluate model performance, run the
+following command:
 
 ```shell
 TF_CPP_MIN_LOG_LEVEL=3 python main.py --train --test --epochs 75 --dataset pamap2
@@ -58,7 +62,7 @@ If the pretrained weights are stored in `saved_model` directory and to infer wit
 TF_CPP_MIN_LOG_LEVEL=3 python main.py --test --dataset pamap2
 ```
 
-### Citation
+## Citation
 
     @inproceedings{ECAI2020HAR-SaifTanjid,
       title={Human Activity Recognition from Wearable Sensor Data Using Self-Attention},
