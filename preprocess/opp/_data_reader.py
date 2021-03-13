@@ -69,7 +69,7 @@ class data_reader:
     def readOpportunityFiles(self, filelist, cols, labelToId):
         data = []
         labels = []
-        for i, filename in tqdm(enumerate(filelist)):
+        for filename in tqdm(filelist, total=len(filelist)):
             with open('data/raw/opp/OpportunityUCIDataset/dataset/%s' % filename, 'r') as f:
                 reader = csv.reader(f, delimiter=' ')
                 for line in reader:
