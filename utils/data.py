@@ -11,6 +11,8 @@ warnings.filterwarnings("ignore")
 
 
 def get_data(dataset: str):
+    print(f'[Loading {dataset} data]')
+
     if dataset == 'pamap2':
         (train_x, train_y), (val_x, val_y), (test_x, test_y), y_test = get_pamap2_data()
 
