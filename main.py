@@ -8,7 +8,7 @@ from utils.result import generate_result
 from utils.test import test_model
 from utils.train import train_model
 
-warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Self Attention Based HAR Model Training')

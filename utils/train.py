@@ -7,7 +7,7 @@ import tensorflow as tf
 from model.har_model import create_model
 
 tf.keras.backend.clear_session()
-warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 sys.path.append("../")
 

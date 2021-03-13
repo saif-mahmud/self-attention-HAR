@@ -5,4 +5,4 @@
 | USC-HAD     	|          12          	|           13, 14          	|      1/3     	|          50\%          	|                   A, G                  	|
 | Skoda       	|          11          	|             1             	|      1/3     	|          50\%          	|                    A                    	|
 
-For the **Sensor Used** column, **A = Accelerometer, G = Gyroscope, M = Magnetometer**
+For the **Sensors Used** column, **A = Accelerometer, G = Gyroscope, M = Magnetometer**
