@@ -41,7 +41,7 @@ These models can be used directly for inference and performance evaluation as de
 ## Training and Evaluation
 
 Python script `main.py` will be used for model training, inference and performance evaluation. The arguments for this
-script is as follows:
+script are as follows:
 
     -h, --help         show this help message and exit 
     --train            Training Mode 
